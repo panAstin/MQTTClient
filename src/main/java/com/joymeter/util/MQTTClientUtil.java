@@ -40,24 +40,24 @@ public class MQTTClientUtil {
 					public void messageArrived(String topic, MqttMessage message) throws Exception { //接收消息
 						String content = new String(message.getPayload());
 						logger.info("received topic:"+topic+" content:"+content);
-						String[] topicStrings = topic.split("/");
-						switch (topicStrings[0]) {
-						case "$event":
-							try {
-								JSONObject event = JSONObject.parseObject(content) ;
-								ThreadsExecutor.GetPoolExecutorService().execute(new Runnable() {
-									
-									@Override
-									public void run() {
-										receiveEvent(topicStrings[1], event);
-									}
-								});
-							} catch (Exception e) {
-								logger.error("格式错误:"+e);
-							}
-							break;
 
-						}
+						ThreadsExecutor.GetPoolExecutorService().execute(new Runnable() {
+							
+							@Override
+							public void run() {
+								String[] topicStrings = topic.split("/");
+								switch (topicStrings[0]) {
+								case "$event":
+									try {
+										JSONObject event = JSONObject.parseObject(content) ;
+										receiveEvent(topicStrings[1], event);
+									} catch (Exception e) {
+										logger.error("格式错误:"+e);
+									}
+									break;
+								}
+							}
+						});
 						
 					}
 					
