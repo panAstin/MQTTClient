@@ -11,7 +11,11 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import com.alibaba.fastjson.JSONObject;
-
+/**
+ * MQTT客户端
+ * @author Pan Shuoting
+ *
+ */
 public class MQTTClientUtil {
 	private static final Logger logger = Logger.getLogger(MQTTClientUtil.class.getName());
 	
