@@ -7,7 +7,7 @@ import org.apache.log4j.PropertyConfigurator;
 import com.joymeter.util.MQTTClientUtil;
 
 /**
- * Hello world!
+ * 主类
  *
  */
 public class App 
@@ -16,6 +16,7 @@ public class App
     {
     	String configpath  = System.getProperty("user.dir")+File.separator+"log4j.properties";
     	PropertyConfigurator.configure(configpath);
+    	
         MQTTClientUtil.getInstance();
     }
 }

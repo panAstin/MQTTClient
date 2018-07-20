@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * MQTT客户端
  * @author Pan Shuoting
- *
+ * @version 1.0.0
  */
 public class MQTTClientUtil {
 	private static final Logger logger = Logger.getLogger(MQTTClientUtil.class.getName());
@@ -45,7 +45,13 @@ public class MQTTClientUtil {
 						case "$event":
 							try {
 								JSONObject event = JSONObject.parseObject(content) ;
-								receiveEvent(topicStrings[1], event);
+								ThreadsExecutor.GetPoolExecutorService().execute(new Runnable() {
+									
+									@Override
+									public void run() {
+										receiveEvent(topicStrings[1], event);
+									}
+								});
 							} catch (Exception e) {
 								logger.error("格式错误:"+e);
 							}
