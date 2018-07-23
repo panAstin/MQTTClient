@@ -39,7 +39,7 @@ public class MQTTClientUtil {
 					@Override
 					public void messageArrived(String topic, MqttMessage message) throws Exception { //接收消息
 						String content = new String(message.getPayload());
-						System.out.println("received topic:"+topic+" content:"+content);
+						logger.info("received topic:"+topic+" content:"+content);
 						String[] topicStrings = topic.split("/");
 						switch (topicStrings[0]) {
 						case "$event":
@@ -116,8 +116,6 @@ public class MQTTClientUtil {
 	private static void receiveEvent(String deviceId,JSONObject content) {
 		String operation = content.getString("operation");
 		logger.info("event operation:"+operation);
-		String code = "200";   
-		String msg = "";
 		switch (operation) {
 		case "GetState":  //获取状态
 			content.put("onlineState", 1);  //模拟数据
@@ -139,7 +137,6 @@ public class MQTTClientUtil {
 			break;
 
 		}
-		Dataup(deviceId, content, code, msg);
 	}
 	
 	/**
@@ -149,7 +146,7 @@ public class MQTTClientUtil {
 	 * @param code   执行结果（200成功 400失败）
 	 * @param msg  结果描述信息
 	 */
-	private static void Dataup(String produceId,JSONObject data,String code,String msg) {
+	public static void Dataup(String produceId,JSONObject data,String code,String msg) {
 		JSONObject content = new JSONObject();
 		content.put("code", code);
 		content.put("data", data);
