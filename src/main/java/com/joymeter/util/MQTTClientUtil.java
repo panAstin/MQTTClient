@@ -62,7 +62,7 @@ public class MQTTClientUtil {
 					
 					@Override
 					public void connectionLost(Throwable throwable) {   //断开连接
-						logger.error("Lost connecttion:"+throwable);
+						logger.error("Lost connection:"+throwable);
 						
 					}
 					
@@ -135,8 +135,8 @@ public class MQTTClientUtil {
 		case "ElecSwitchOff":  //电表拉闸
 			
 			break;
-
 		}
+		Dataup(deviceId, content, "200", ""); //测试数据上报
 	}
 	
 	/**
